@@ -1,0 +1,19 @@
+TODO:
+	- extend websocket support
+	- use gesture recognition of the myo
+	- simplify sensor alignment (quaternions are difficult)
+		? 3d application where user cann align the sensors
+		? automatically align sensors with the help of overlapping joints (e.g. Iterative Closest Point)
+	- move tasks, which have always to be done during the fusion process, out of the fuser
+		- calculate absolute positions of the joints in dependence of the collectsAbsoluteData field of the sensoren
+		- set default position and/or orientation of a joint if not tracked
+	- enable wrapper to deliver data for a joint (j1) relative to a joint (j2) in the body model without delivering data for j2
+	- sometimes a wrapper cannot be terminated - try to force termination
+	- adopt kinect nativ library
+		- don't close application if kinect cannot be initialized
+	- reset function 
+	? make confidence values delivered by the sensors more comparable
+	? let a wrapper only deliver data for joints used in the current body model
+		- disadvantage: wrapper needs knowledge about the body model 
+	? recalculate orientation on base of the positions if confidence falls short of a specific bound
+	? support multiple tracked persons

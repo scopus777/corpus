@@ -1,0 +1,142 @@
+<config>
+  <!-- base address of the server -->
+  <baseURI>http://localhost:8080/</baseURI>
+  <!-- addition directories where the framework looks for fuser, filter and sensors -->
+  <additionalSearchPaths>
+    <path>D:\foo\bar</path>
+  </additionalSearchPaths>
+  <!-- granularity of the body model -->
+  <modelType>
+    <!-- granularity of a single body part -->
+    <!-- NONE, SPARSE or COMPLEX possible-->
+    <torso>SPARSE</torso>
+    <hands>SPARSE</hands>
+    <feet>SPARSE</feet>
+  </modelType>
+  <!-- bumber of updates of the body model per second -->
+  <framesPerSecond>30</framesPerSecond>
+  <!-- number of saved ellapsed scenes -->
+  <frameHistory>60</frameHistory>
+  <!-- time until joints will return to their default position if not tracked -->
+  <returnToDefault>2000</returnToDefault>
+  <!-- fuser used for the fusing process -->
+  <!-- must be provided by the framework or placed in one of the additional search paths -->
+  <fuser>
+    <!-- class name of the fuser inlcuding the package -->
+    <class>com.corpus.fuser.ConfidenceDominanceFuser</class>
+  </fuser>
+  <!-- filter used for the filter process -->
+  <!-- must be provided by the framework or placed in one of the additional search paths -->
+  <filter>
+    <class>com.corpus.filter.AdaptiveDoubleExponentialFilter</class>
+    <!-- arguments that will be given to the constructor of the filter -->
+    <arguments>
+      <argument>
+        <!-- name of the argument-->
+        <name>initialAlpha</name>
+        <!-- value of the argument -->
+        <value>0.75</value>
+      </argument>
+      <argument>
+        <name>initialGamma</name>
+        <value>0.75</value>
+      </argument>
+    </arguments>
+  </filter>
+  <!-- definition of additional joints -->
+  <joints>
+    <!-- difinition of an additional joint not existent in the current body model -->
+    <joint>
+      <!-- type of the joint -->
+      <!-- must occur in the enum JointType -->
+      <type>NECK</type>
+      <!-- father of the joint -->
+      <parent>SPINE_SHOULDER</parent>
+      <!-- standard position relative to the parent -->
+      <!-- if there is no parent the value is treated as a absolute value -->
+      <defaultPosition>
+        <x>0</x> <y>12.5</y> <z>0</z>
+      </defaultPosition>
+      <!-- standard orientation relative to the parent -->
+      <!-- if there is no parent the value is treated as a absolute value -->
+      <defaultOrientation>
+        <w>1</w> <x>0</x> <y>0</y> <z>0</z>
+      </defaultOrientation>
+    </joint>
+    <!-- overwriting of a joint already existent in the body model -->
+    <joint>
+      <type>HEAD</type>
+      <parent>NECK</parent>
+      <defaultPosition>
+        <x>0</x> <y>12.5</y> <z>0</z>
+      </defaultPosition>
+      <defaultOrientation>
+        <x>0</x> <y>0</y> <z>0</z> <w>1</w>
+      </defaultOrientation>
+    </joint>
+  </joints>
+  <!-- definition of the sensors used by the framework -->
+  <sensors>
+    <sensor>
+      <!-- id if the sensor -->
+      <!-- importent if there a multiple sensors of the same type and the user wants to call a sensor specific method -->
+      <!-- if no id is given, a random id will be generated -->
+      <id>kinect</id>
+      <class>com.corpus.sensor.kinect.KinectSensor</class>
+      <arguments>
+        <argument>
+          <name>positionConfidence</name>
+          <value>1.0</value>
+        </argument>
+        <argument>
+          <name>orientationConfidence</name>
+          <value>1.0</value>
+        </argument>
+        <argument>
+          <name>eventBased</name>
+          <value>false</value>
+        </argument>
+        <argument>
+          <name>showDebugWindow</name>
+          <value>true</value>
+        </argument>
+        <argument>
+          <name>drawBones</name>
+          <value>true</value>
+        </argument>
+        <argument>
+          <name>drawCoordinateSystems</name>
+          <value>false</value>
+        </argument>
+      </arguments>
+      <!-- relative position to the parent -->
+      <!-- if there is no parent the value is treated as a absolute value -->
+      <relativePosition>
+        <x>0</x> <y>0</y> <z>0</z>
+      </relativePosition>
+      <!-- relative orientation to the parent -->
+      <!-- if there is no parent the value is treated as a absolute value -->
+      <relativeOrientation>
+        <x>0</x> <y>0</y> <z>0</z> <w>1</w>
+      </relativeOrientation>
+    </sensor>
+    <sensor>
+      <class>com.corpus.sensor.leapMotion.LeapMotionSensor</class>
+      <arguments>
+        <argument>
+          <name>policyFlags</name>
+          <value>POLICY_OPTIMIZE_HMD POLICY_BACKGROUND_FRAMES</value>
+        </argument>
+      </arguments>
+      <!-- father of the sensor-->
+      <!-- has to be the type of a joint -->
+      <parent>HEAD</parent>
+      <relativePosition>
+        <x>0</x> <y>4</y> <z>9</z>
+      </relativePosition>
+      <relativeOrientation>
+        <x>0.7071</x> <y>0</y> <z>0</z> <w>0.7071</w>
+      </relativeOrientation>
+    </sensor>
+  </sensors>
+</config>
