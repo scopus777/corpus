@@ -612,7 +612,7 @@ There is a sensor-fusion library called [Jester] with similar goals like the her
 
 ## License
 
-Copyright 2014 Matthias Weise matthiasweise@online.de
+Copyright 2015 Matthias Weise matweise@uni-potsdam.de
 
 GNU Lesser General Public License (LGPL) version 3 or later.  
 http://www.gnu.org/licenses/lgpl.html
